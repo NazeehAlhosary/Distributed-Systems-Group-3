@@ -11,12 +11,12 @@ app.use(bodyParser.json());
 //app.use('controllers', express.static(path.join(__dirname,'controllers')));
 app.get('/', (req,res) => {
 
-    res.sendFile(path.join(__dirname + '/MainPage.html'));
+    res.sendFile(path.join(__dirname + '/controllers/MainPage.html'));
 });
 
 app.get('/Classes', (req,res) => {
 
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.sendFile(path.join(__dirname + '/controllers/index.html'));
 });
 
 //app.listen(3000,() => console.log("Server Started..,") );
