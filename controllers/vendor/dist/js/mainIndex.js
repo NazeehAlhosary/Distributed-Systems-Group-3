@@ -137,3 +137,11 @@ function sendFileName() {
     var x = document.getElementById("myFile").name;
     document.getElementById("demo").innerHTML = x;
 }
+
+var leadsRef = firebase.database().ref(localStorage.getItem("storageName"));
+leadsRef.on('value', function(snapshot) {
+   snapshot.forEach(function(childSnapshot) {
+     var childData = childSnapshot.val();
+     console.log(childData);
+   });
+});

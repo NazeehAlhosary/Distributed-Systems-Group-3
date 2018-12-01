@@ -1,3 +1,17 @@
+window.onload = console.log(localStorage.getItem("storageName"));
+var config = {
+  apiKey: "AIzaSyA1uXkc8gQTjysEtyWBhcc1dnbgRlTciEw",
+  authDomain: "distributed-system-group-3.firebaseapp.com",
+  databaseURL: "https://distributed-system-group-3.firebaseio.com",
+  projectId: "distributed-system-group-3",
+  storageBucket: "distributed-system-group-3.appspot.com",
+  messagingSenderId: "788433805630"
+};
+firebase.initializeApp(config);
+
+  var projectRef = firebase.database().ref(localStorage.getItem("storageName"));
+
+
 //String to save XML String
 var StringXML = "";
 
@@ -9,7 +23,6 @@ var myProject = {
   Relations: [],
   Classes: []
 };
-
 //Function that can be called in HTML input tag which takes the input file (XML)
 
 var MyFilter = function(event) {
@@ -26,7 +39,7 @@ check this https://www.javascripture.com/FileReader */
     //we use xmlToJSON library that we included as xmlToJSON.js in our script in HTML code ans use it here
     var result = xmlToJSON.parseString(StringXML);
     //Acording to srcML documentaion we extraxt first the array that has the objects that we need
-    myObject = result.unit[0].unit
+    myObject = result.unit[0].unit;
     //loop in our object array to extract intefaces + classes + realtions
     for (var i = 0; i < myObject.length; i++) {
       /* Try and catch importatnt to catch the error when we loop on an objec and there will be no object
@@ -38,6 +51,7 @@ check this https://www.javascripture.com/FileReader */
         myProject.Interfaces[i] = {
           "InterfaceName": myinterface
         }
+        
       } catch (e) {}
       try {
         myclass = myObject[i].class[0].name[0]._text;
@@ -58,14 +72,30 @@ check this https://www.javascripture.com/FileReader */
       } catch (e) {}
 
     }
+  
+    var projectData = [];
+    projectData.push(myProject);
 
     console.log(myProject);
+    console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ JSON ARRAY ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓"); 
+    console.log(projectData); 
+    saveProject(projectData);
+  //  var testObj = JSON.parse(myProject).getJSONArray(); 
+   // var values = json.getJSONArray(myProject);
+   // console.log(values);
+    //console.log(testObj);
+   
   };
 
   // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
   reader.onload = onload;
   reader.readAsText(input.files[0]);
 };
+
+function saveProject (Project){
+  //var newMessagesRef = messagesRef.push();
+  projectRef.push(Project)
+}
 
 //Function to print all project interfaces + classes + relations
 /*
