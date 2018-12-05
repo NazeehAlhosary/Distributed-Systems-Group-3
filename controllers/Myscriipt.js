@@ -5,61 +5,53 @@ var StringXML = "";
 for one project as one JSON object */
 
 var myProject = {
-  Interfaces: [],
-  Relations: [],
-  Classes: []
+  name: "Group3",
+  children: []
+};
+
+var myTempObj = {
+Relations : []
 };
 
 //Function that can be called in HTML input tag which takes the input file (XML)
 
-var MyFilter = function(event) {
+var MyFilter = function (event) {
   var input = event.target;
 
   /* FileReader is used to read the contents of a File
 check this https://www.javascripture.com/FileReader */
 
   var reader = new FileReader();
-  var onload = function(event) {
+  var onload = function (event) {
 
     //reader has many objects and we want the result object which has string (our xml string)
     StringXML = reader.result;
     //we use xmlToJSON library that we included as xmlToJSON.js in our script in HTML code ans use it here
     var result = xmlToJSON.parseString(StringXML);
-    //Acording to srcML documentaion we extraxt first the array that has the objects that we need
+
     myObject = result.unit[0].unit
-    //loop in our object array to extract intefaces + classes + realtions
+
     for (var i = 0; i < myObject.length; i++) {
-      /* Try and catch importatnt to catch the error when we loop on an objec and there will be no object
-          with the name interface or class or extends (acording to srcML documentation) */
-      try {
-        /* save interface name into string (extract it from intreface.name.text ) and then add it to interface
-            array inside our myProject object that we created and same for realtions and classes */
-        myinterface = myObject[i].interface[0].name[0]._text;
-        myProject.Interfaces[i] = {
-          "InterfaceName": myinterface
-        }
-      } catch (e) {}
       try {
         myclass = myObject[i].class[0].name[0]._text;
         mysuper = myObject[i].class[0].super[0].extends[0].name[0]._text;
-        myProject.Relations[i] = {
-          "ClassName": myclass,
-          "SuperClass": mysuper
+
+        myProject.children[i] = {
+          "name": mysuper,
+          "children": [
+            {
+              "name": myclass,
+              "Size": 1
+            }
+          ]
         }
 
-      } catch (e) {}
-
-      try {
-        myclass = myObject[i].class[0].name[0]._text;
-        myProject.Classes[i] = {
-          "ClassName": myclass
-        }
-
-      } catch (e) {}
+      } catch (e) { }
 
     }
 
     console.log(myProject);
+
   };
 
   // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload
@@ -67,25 +59,34 @@ check this https://www.javascripture.com/FileReader */
   reader.readAsText(input.files[0]);
 };
 
-//Function to print all project interfaces + classes + relations
 /*
+//Function to print all project interfaces + classes + relations
+
 function PrintProject() {
+
+  var obj = JSON.parse(myObject);
+
   console.log("Project Interfaces are :");
-  for (var i = 0; i < myProject.Interfaces.length; i++) {
-    var interface = myProject.Interfaces[i].InterfaceName;
+  for (var i = 0; i < obj.getJSONArray("Relations").length; i++) {
+    var interface = "";
+    interface = obj.getJSONArray("Relations")[i].ClassName;
     console.log(interface);
   }
+}
+
   console.log("Project Classes are :");
-  for (var i = 0; i < myProject.Classes.length; i++) {
-    var cname = myProject.Classes[i].ClassName;
+  for (var i = 0; i < obj.Classes.length; i++) {
+    var cname = "";
+    cname = obj.Classes[i].ClassName;
     console.log(cname);
+
   }
   console.log("Project Relations are :");
-  for (var i = 0; i < myProject.Relations.length; i++) {
-    var crname = myProject.Relations[i].ClassName;
-    var srname = myProject.Relations[i].SuperClass;
-    console.log(crname + " extends " + srname);
-  }
+  for (var i = 0; i < obj.Relations.length; i++) {
 
-}
+    var crname = obj.Relations[i].ClassName;
+    var srname = obj.Relations[i].SuperClass;
+    console.log(crname + " extends " + srname);
+
+  }
 */
