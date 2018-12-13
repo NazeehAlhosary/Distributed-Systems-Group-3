@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TestUpload File</title>
+    <style media="screen">
+        body{
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            align-content: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #uploader{
+            -webkit-appearance: none;
+            appearance: none;
+            width: 50%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <progress value="0" max="100" id="uploader">0%</progress>
+    <br>
+    <input type="file" value="upload" id="fileButton">
+    
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyA1uXkc8gQTjysEtyWBhcc1dnbgRlTciEw",
+        authDomain: "distributed-system-group-3.firebaseapp.com",
+        databaseURL: "https://distributed-system-group-3.firebaseio.com",
+        projectId: "distributed-system-group-3",
+        storageBucket: "distributed-system-group-3.appspot.com",
+        messagingSenderId: "788433805630"
+      };
+      firebase.initializeApp(config);
+      // Get elements
+      var uplodaer = document.getElementById('uploader');
+      var fileButton = document.getElementById('fileButton');
+      // Listen for file selection
+      fileButton.addEventListener('change',function(e){
+          // Get file
+            var file = e.target.files[0];
+          // Create a stoarge ref
+           // Example //firebase.storage().ref('folder_name/file_name');
+           var storageRef = firebase.storage().ref('myFolder/'+ file.name);
+          //Upload the file
+         var task = storageRef.put(file);
+          // Upload progress bar
+          task.on('state_changed',
+          
+            function progress(snapshot){
+                var presentage = (  snapshot.bytesTransferred / 
+                snapshot.totalBytes ) * 100;
+                uplodaer.value = presentage;
+            },
+
+             function error(err){
+
+            },
+
+            function complete(snashot){
+
+            },
+            
+          );
+      });
+
+    </script>
+</body>
+</html>

@@ -16,13 +16,13 @@ app.use(express.static((__dirname,'controllers')));
 
 app.get('/', (req,res) => {
 
-    res.sendFile(path.join(__dirname , 'controllers', 'indexRan.html'));
+    res.sendFile(path.join(__dirname , 'controllers', 'index.html'));
 });
 
 
 app.get('/test', (req,res) => {
 
-    res.sendFile(path.join(__dirname , 'controllers', 'indexRan.html'));
+    res.sendFile(path.join(__dirname , 'controllers', 'index.html'));
 });
 
 
@@ -34,7 +34,17 @@ app.get('/Projects', (req,res) => {
 
 app.get('/Classes', (req,res) => {
 
-    res.sendFile(path.join(__dirname + '/controllers/index.html'));
+    res.sendFile(path.join(__dirname + '/controllers/indexNaz.html'));
+});
+
+app.get('/SBvisualization', (req,res) => {
+
+    res.sendFile(path.join(__dirname + '/controllers/sunBurst.html'));
+});
+
+app.get('/RTvisualization', (req,res) => {
+
+    res.sendFile(path.join(__dirname + '/controllers/radialTree.html'));
 });
 
 app.listen(port,() =>{
