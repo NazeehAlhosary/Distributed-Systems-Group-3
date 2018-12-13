@@ -1,6 +1,7 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var socket = require('socket.io-client')('http://192.168.43.215:3000');
+var io = require('socket.io')(server);
 server.listen(3000);
 
 var globaldata;
@@ -33,3 +34,8 @@ app.get('/', function (req, res) {
    
 });
    
+io.on('connection', function (socket) {
+  socket.on('FromHtml', function (data) {
+    console.log(data);
+  });
+});

@@ -9,6 +9,23 @@
     <script src="main.js"></script>
 </head>
 <body>
-    <h1>Visulizer</h1>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io('http://localhost:3000');
+
+            function send() {
+                var msg = document.getElementById('msg').value;
+                socket.emit('FromHtml', msg);
+            }
+   
+        
+        </script>
+
+    <h1> The Visulizer </h1>
+Enter Your Msg Here :
+    <input type="text" id="msg">
+    <button id="btn" onclick="send()"> Send </button>
+    <p>Send msg to the slave-app.js</p>
+    <p>Check your Console :)</p>
 </body>
 </html>
