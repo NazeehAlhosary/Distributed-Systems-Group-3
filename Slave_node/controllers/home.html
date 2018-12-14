@@ -91,29 +91,27 @@
          </footer>
       </div>
       <script src="./vendor/dist/js/main.min.js"></script>
+      <script src="/socket.io/socket.io.js"></script>
       
 
 <script>
 var input = document.getElementById( 'file-upload' );
-//var infoArea = document.getElementById( 'file-upload-filename' );
+var socket = io('http://localhost:4000');
 
-/*
-function showFileName( event ) {
-  
-  // the change event gives us the input it occurred in 
-  var input = event.srcElement;
-  
-  // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-  var fileName = input.files[0].name;
-  
-  // use fileName however fits your app best, i.e. add it into a div
-  infoArea.textContent = 'File name: ' + fileName;
-  var newString = fileName.substr(0, fileName.length-4); // To remove the last 4 characters in case to remove the file extention ((.XML)) 
-  localStorage.setItem("storageName",newString);
-console.log("The data at local Storage is : " + localStorage.getItem("storageName"));
-window.location.href = "/Classes";
-}
-*/
+      
+socket.on('fromSlaveToHome',function (data) {
+
+window.location.href = "/";
+
+
+})   
+
+       
+          
+        
+   
+        
+
 
 function saveInLocalStorage(){
   var input = document.getElementById( 'file-upload' ).files[0];
@@ -128,13 +126,20 @@ function saveInLocalStorage(){
            // alert(e.target.result); //not needed for now
            localStorage.setItem("json-items", JSON.stringify(e.target.result));
            console.log("The data at local Storage is : " + JSON.parse(localStorage.getItem("json-items")));
+           socket.emit('fromHome',JSON.parse(localStorage.getItem("json-items")));
 
           };
+
+
+  
     }
+
 
 createJSONFile();
 
-  window.location.href = "/RTvisualization";
+
+
+  window.location.href = "/";
 
 
 }
