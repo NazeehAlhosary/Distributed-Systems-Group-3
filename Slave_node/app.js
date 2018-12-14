@@ -19,6 +19,15 @@ app.get('/', function (req, res) {
 
   });
 
+  app.get('/SBvisualization', (req,res) => {
+
+    res.sendFile(path.join(__dirname + '/controllers/sunBurst.html'));
+});
+
+app.get('/RTvisualization', (req,res) => {
+
+    res.sendFile(path.join(__dirname + '/controllers/radialTree.html'));
+});
 
   socket.emit('add', {
    message: 'Majed Dalain'

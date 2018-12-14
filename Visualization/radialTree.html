@@ -14,7 +14,28 @@
     <div id="myGraph"></div>
   </div>
   <script>
- d3.json('data.json', data => {
+
+     var data = localStorage.getItem("json-items");
+
+var jsonFile = null,
+  createJSONFile = function (text) {
+   // var data = new Blob([text], {type: 'text/plain'});
+   var data = new Blob([JSON.parse(localStorage.getItem("json-items"))], {type : 'application/json'});
+
+    // If we are replacing a previously generated file we need to
+    // manually revoke the object URL to avoid memory leaks.
+    if (jsonFile !== null) {
+      window.URL.revokeObjectURL(jsonFile);
+    }
+
+    jsonFile = window.URL.createObjectURL(data);
+    console.log(jsonFile);
+
+    // returns a URL you can use as a href
+    return jsonFile;
+  };
+
+ d3.json( createJSONFile() , data => {
       networkChart = renderChartCollapsibleNetwork()
         .svgHeight(window.innerHeight - 30)
         .svgWidth(window.innerWidth - 30)
