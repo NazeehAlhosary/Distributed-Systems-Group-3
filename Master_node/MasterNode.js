@@ -6,7 +6,63 @@ var io = require('socket.io')(server);
 
 server.listen(3000);
 
-var globalVar = {
+var globalVar;
+
+
+
+
+ app.use(express.static((__dirname,'controllers')));
+ app.set('appPath','controllers');
+// WARNING: app.listen(80) will NOT work here!
+
+app.get('/', function (req, res) {
+  if (globalVar !== undefined){
+    res.sendFile(path.join(__dirname + '/controllers/visualize.html'));
+   
+   // res.sendFile( __dirname  + '/visualize.html');
+    
+  }else{
+    res.sendFile(path.join(__dirname + '/controllers/home.html'));
+
+  }
+ 
+
+});
+
+
+io.sockets.on('connection', function (socket) {
+ 
+console.log('made socket connection', socket.id  );
+  
+io.sockets.emit('fromMaster',  globalVar ); 
+console.log(globalVar);
+socket.on('fromSlave', function (data) {
+  
+      console.log('************************************************************************************************************************');
+      globalVar = data;
+      io.sockets.emit('fromMaster',  globalVar ); 
+      console.log(globalVar);
+
+});
+
+});
+
+
+
+
+ 
+  
+
+
+
+
+
+
+
+
+
+
+/*var globalVar = {
   "name": "flare",
   "children": [
    {
@@ -386,72 +442,4 @@ var globalVar = {
    }
   ]
  };
-
-module.exports = { variableName: globalVar };
- app.use(express.static((__dirname,'controllers')));
- app.set('appPath','controllers');
-// WARNING: app.listen(80) will NOT work here!
-
-app.get('/', function (req, res) {
-  if (globalVar !== undefined){
-    res.sendFile(path.join(__dirname + '/controllers/visualize.html'));
-  /* res.render('/controllers/visualize', {
-     myVar: globalVar
-   });
-    */
-   
-    console.log("****visualize****" + globalVar);
-   
-   // res.sendFile( __dirname  + '/visualize.html');
-    
-  }else{
-    res.sendFile(path.join(__dirname + '/controllers/home.html'));
-    //res.sendFile(__dirname  + '/home.html');
-    console.log("****home page****" + globalVar);
-
-  }
- 
-
-});
-
-
-io.sockets.on('connection', function (socket) {
- 
-  console.log('made socket connection', socket.id  );
-  io.sockets.emit('check',  globalVar );
-  console.log(globalVar )
- /*
-  if (globalVar.message!== undefined){
-    console.log("Data found");
-      console.log("Data found in lastupdate ");
-      io.sockets.emit('lastupdate',  globalVar );
-      console.log(globalVar.message + " From second");
-  }else{
-    console.log("No Data Found");
-     
-  }
-  */
-  // Handle chat event
-
-  socket.on('add', function (data) {
-      // console.log(data);
-      io.sockets.emit('add', data);
-      console.log(data);
-     // globalVar = data;
-    //  console.log(globalVar.message + " From chat");
-
-  
-  });
-
-  socket.on('senddata', function (data) {
-    //data = globalVar;
-    io.sockets.emit('senddata', globalVar);
-});
-
-});
-
-
-
-
-
-  
+*/
