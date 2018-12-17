@@ -2,7 +2,7 @@ var app = require('express')();
 var express = require('express');
 
 var server = require('http').Server(app);
-var socket = require('socket.io-client')('http://192.168.43.215:3000');
+var socket = require('socket.io-client')('http://localhost');
 var io = require('socket.io')(server);
 server.listen(4000);
 
