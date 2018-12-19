@@ -3,12 +3,12 @@ var express = require('express');
 var path = require("path");
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var storage = require('storage.json' );
 
 server.listen(3000);
 
 var globalVar;
-
-
+var globalObjectVar;
 
 
  app.use(express.static((__dirname,'controllers')));
@@ -28,22 +28,46 @@ app.get('/', function (req, res) {
  
 
 });
-
-
+//console.log(globalVar);
 io.sockets.on('connection', function (socket) {
  
 console.log('made socket connection', socket.id  );
   
 io.sockets.emit('fromMaster',  globalVar ); 
-console.log(globalVar);
-socket.on('fromSlave', function (data) {
-  
+//console.log(globalVar);
+socket.on('fromSlave', function (dataString,dataObject) {
       console.log('************************************************************************************************************************');
-      globalVar = data;
+     console.log(typeof dataString);
+     console.log(typeof dataObject);
+      globalVar = dataString;
+      globalObjectVar = dataObject;
       io.sockets.emit('fromMaster',  globalVar ); 
-      console.log(globalVar);
+ //     console.log( JSON.stringify(globalVar));
 
 });
+
+socket.on('deleteClass', function (data) {
+  console.log('from Delete');
+  var test = JSON.stringify(data);
+  var test2 = JSON.stringify(globalObjectVar);
+  console.log(data);
+  console.log(JSON.stringify(data));
+  //console.log(JSON.parse(globalVar));
+  //console.log( globalVar);
+  console.log('************************************************************************************************************************');
+
+ // io.sockets.emit('fromMasterDelete',  newString2 ); 
+  var newString = test2.replace(test,'*');
+  var newString2 = newString.replace('*,','');
+  //newGlobalVar = JSON.parse(old_string);
+  // console.log(newString2);
+ 
+   io.sockets.emit('fromMasterDelete',  newString2 ); 
+  //io.sockets.emit('fromMasterDelete',  newString2 ); 
+  //console.log(globalVar);
+
+});
+
 
 });
 

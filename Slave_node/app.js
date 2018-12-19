@@ -26,10 +26,6 @@ app.get('/', function (req, res) {
 });
 
 
-
-
-
-
 socket.on('fromMaster', function (data) {
 console.log(data);
 
@@ -60,5 +56,5 @@ function sendToMaster() {
   socket.emit('fromSlave', globaldata);
 }
 function fromMasterMo() {
-  io.emit('fromSlaveToHome','done');
+  io.emit('fromSlaveToHome',globaldata);
 }
