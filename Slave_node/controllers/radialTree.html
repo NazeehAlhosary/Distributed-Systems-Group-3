@@ -2,6 +2,7 @@
 <head>
   <meta charset="utf-8">
   <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   
   <style> 
     body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; background-image: url("image8.png"); background-repeat: no-repeat; background-size: 1450px 816px;}
@@ -11,11 +12,21 @@
  
 <body class="back">
   <div class="">
-    <div id="myGraph"></div>
+    <div id="myGraph">
+        <p style="color:red">Double Tap to Delete</p>
+        <input type="text" id="in">
+    </div>
+
+     
+
+   
+ 
   </div>
   <script>
 
      var data = localStorage.getItem("json-items");
+    
+
 
 var jsonFile = null,
   createJSONFile = function (text) {
@@ -29,12 +40,18 @@ var jsonFile = null,
     }
 
     jsonFile = window.URL.createObjectURL(data);
-    console.log(jsonFile);
+
 
     // returns a URL you can use as a href
     return jsonFile;
   };
 
+
+
+
+
+ 
+ 
  d3.json( createJSONFile() , data => {
       networkChart = renderChartCollapsibleNetwork()
         .svgHeight(window.innerHeight - 30)
@@ -44,8 +61,13 @@ var jsonFile = null,
         .debug(true)
         .run()
     })
+
 </script>
+
   <script>
+
+var socket = io('http://localhost:4000');
+
 /*  
 
 This code is based on following convention:
@@ -110,7 +132,14 @@ function renderChartCollapsibleNetwork(params) {
       //########################## HIERARCHY STUFF  #########################
       var hierarchy = {};
       hierarchy.root = d3.hierarchy(attrs.data.root);
-
+      
+    
+     //var res = JSON.stringify(hierarchy.root.data);
+     console.log(hierarchy.root.data);
+    
+      //console.log (JSON.parse(res));
+      
+      
 
       //###########################   BEHAVIORS #########################
       var behaviors = {};
@@ -199,6 +228,7 @@ function renderChartCollapsibleNetwork(params) {
       // flatten root 
       var arr = flatten(hierarchy.root);
 
+
       // hide members based on their depth
       arr.forEach(d => {
         if (d.depth > attrs.hiddenChildLevel) {
@@ -275,10 +305,13 @@ function renderChartCollapsibleNetwork(params) {
           .attr('class', 'node')
 
         //bind event handlers
-        enteredNodes.on('click', nodeClick)
+        enteredNodes.on('dblclick', nodeClick)
           .on('mouseenter', nodeMouseEnter)
           .on('mouseleave', nodeMouseLeave)
+          .on('click', nodeDClick)
+    
           .call(behaviors.drag)
+
 
 
 
@@ -385,6 +418,8 @@ function renderChartCollapsibleNetwork(params) {
 
         //get links
         var links = hierarchy.root.links();
+     
+        
 
         //get hovered node connected links
         var connectedLinks = links.filter(l => l.source.id == d.id || l.target.id == d.id);
@@ -420,10 +455,65 @@ function renderChartCollapsibleNetwork(params) {
       }
 
       // --------------- handle node click event ---------------
+
+            //**********************<<<<<<<***********
+                  //***********************<<<<<<**********
+                        //*********************************
+                              //*********************************
+                                    //*********************************
+
       function nodeClick(d) {
 
         //free fixed nodes
         nodes.each(d => { d.fx = null; d.fy = null })
+
+//console.log(d);
+
+
+        // collapse or expand node
+        if (d.children) {
+          d._children = null;
+          d.children = null;
+          update();
+          force.simulation.restart();
+          force.simulation.alphaTarget(0.15);
+          console.log(hierarchy.root.data);
+          console.log("*********");
+          console.log(d.data);
+          console.log("*********");
+
+          var temp = JSON.stringify( d.data );
+          socket.emit('data', d.data);
+        } else if (d._children) {
+          d.children = null;
+          d._children = null;
+          update(d);
+          force.simulation.restart();
+          force.simulation.alphaTarget(0.15);
+          console.log(hierarchy.root.data);
+          console.log("*********");
+          console.log(d.data);
+          console.log("*********");
+        
+          var temp2 = JSON.stringify( d.data );
+          socket.emit('data', d.data);
+
+        
+        } else {
+          //nothing is to collapse or expand
+        }
+        freeNodes();
+        //console.log(hierarchy);
+        
+      }
+
+
+      function nodeDClick(d) {
+        //free fixed nodes
+        nodes.each(d => { d.fx = null; d.fy = null })
+
+//console.log(d);
+
 
         // collapse or expand node
         if (d.children) {
@@ -432,17 +522,35 @@ function renderChartCollapsibleNetwork(params) {
           update();
           force.simulation.restart();
           force.simulation.alphaTarget(0.15);
+          console.log(hierarchy.root.data);
+          console.log("*********");
+          console.log(d.data);
+          console.log("*********");
+
+          var temp = JSON.stringify( d.data );
+          socket.emit('data', d.data);
         } else if (d._children) {
           d.children = d._children;
           d._children = null;
           update(d);
           force.simulation.restart();
           force.simulation.alphaTarget(0.15);
+          console.log(hierarchy.root.data);
+          console.log("*********");
+          console.log(d.data);
+          console.log("*********");
+        
+          var temp2 = JSON.stringify( d.data );
+          socket.emit('data', d.data);
+
+        
         } else {
           //nothing is to collapse or expand
         }
         freeNodes();
-      }
+        //console.log(hierarchy);
+        
+}
 
       //#########################################  UTIL FUNCS ##################################
       updateData = function () {
@@ -491,6 +599,8 @@ function renderChartCollapsibleNetwork(params) {
           nodesArray.push(node);
         }
         recurse(root, 1);
+     
+        
         return nodesArray;
       }
 
@@ -624,6 +734,8 @@ function renderChartCollapsibleNetwork(params) {
   // run  visual
   main.run = function () {
     d3.selectAll(attrs.container).call(main);
+
+    
     return main;
   }
 

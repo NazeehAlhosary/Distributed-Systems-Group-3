@@ -8,6 +8,7 @@ server.listen(4000);
 
 var globaldata;
 
+
 app.use(express.static((__dirname, 'controllers')));
 app.set('appPath', 'controllers');
 
@@ -34,34 +35,57 @@ app.get('/v2', function (req, res) {
 
 
 socket.on('fromMaster', function (data) {
-console.log(data);
+
 
   if (data !== undefined && data !==null) {    
     globaldata = data;
-    console.log(globaldata);
+
     fromMasterMo();
   }
   else{
 
-    console.log("Mrr mn hona");
+  
     
   }
   
  
 });
 
+var globalObject;
 io.on('connection', function (socket) {
-  socket.on('fromHome', function (data) {
+  socket.on('fromHome', function (data,data2) {
+
+    
     globaldata = data ;
-    console.log(globaldata);
+    globalObject = data2;
     sendToMaster();
 
   });
+ 
+  socket.on('data', function (data) {
+    fromMasterMoh(data);
+
+    
+
+  });
+
 });
 
 function sendToMaster() {
-  socket.emit('fromSlave', globaldata);
+  socket.emit('fromSlave', globaldata,globalObject);
 }
 function fromMasterMo() {
   io.emit('fromSlaveToHome',globaldata);
+<<<<<<< HEAD
 }
+=======
+}
+
+function fromMasterMoh(data) {
+  socket.emit('deleteClass',data);
+}
+
+
+
+
+>>>>>>> f7a81db1c7c09c6c9cddf4ff1dc2c355b8cfc397

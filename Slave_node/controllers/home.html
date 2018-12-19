@@ -100,16 +100,30 @@ var socket = io('http://localhost:4000');
 
       
 socket.on('fromSlaveToHome',function (data) {
+<<<<<<< HEAD
    localStorage.setItem("json-items", JSON.stringify(data));
    console.log("The data at local Storage is : " + JSON.parse(localStorage.getItem("json-items")));
    window.location.href = "/";
 }) ;
 
        
+=======
+   localStorage.setItem("json-items",  JSON.stringify(data));
+   console.log("The data at local Storage is : " + JSON.parse(localStorage.getItem("json-items")));
+   window.alert("ChangedNormal");
+   window.location.href = "/" ;
+}) ;
+/*
+socket.on('fromSlaveToHomeD',function (data) {
+   localStorage.setItem("json-items", data);
+   console.log("The data at local Storage is : " + JSON.parse(localStorage.getItem("json-items")));
+   window.alert("ChangedDelete");
+   window.location.href = "/";
+}) ;
+>>>>>>> f7a81db1c7c09c6c9cddf4ff1dc2c355b8cfc397
           
         
-   
-        
+*/   
 
 
 function saveInLocalStorage(){
@@ -123,9 +137,11 @@ function saveInLocalStorage(){
         reader.onload = function(e) {
             // browser completed reading file - display it
            // alert(e.target.result); //not needed for now
-           localStorage.setItem("json-items", JSON.stringify(e.target.result));
+          localStorage.setItem("json-items", JSON.stringify(e.target.result));
+           localStorage.setItem("json-items2",e.target.result);
            console.log("The data at local Storage is : " + JSON.parse(localStorage.getItem("json-items")));
-           socket.emit('fromHome',JSON.parse(localStorage.getItem("json-items")));
+           socket.emit('fromHome',JSON.parse(localStorage.getItem("json-items")) ,JSON.parse(localStorage.getItem("json-items2")));
+          // socket.emit('fromHome2',JSON.parse(localStorage.getItem("json-items2")));
 
           };
 
