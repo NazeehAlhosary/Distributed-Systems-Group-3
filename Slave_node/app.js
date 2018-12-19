@@ -2,7 +2,7 @@ var app = require('express')();
 var express = require('express');
 
 var server = require('http').Server(app);
-var socket = require('socket.io-client')('http://192.168.43.215:3000');
+var socket = require('socket.io-client')('http://192.168.43.215:3001');
 var io = require('socket.io')(server);
 server.listen(4000);
 
@@ -25,9 +25,12 @@ app.get('/', function (req, res) {
 
 });
 
-
-
-
+app.get('/v1', function (req, res) {
+  res.sendfile('controllers/tree.html');
+});
+app.get('/v2', function (req, res) {
+  res.sendfile('controllers/sunBurst.html');
+});
 
 
 socket.on('fromMaster', function (data) {
@@ -60,5 +63,5 @@ function sendToMaster() {
   socket.emit('fromSlave', globaldata);
 }
 function fromMasterMo() {
-  io.emit('fromSlaveToHome','done');
+  io.emit('fromSlaveToHome',globaldata);
 }
