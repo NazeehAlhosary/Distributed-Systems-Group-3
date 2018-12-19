@@ -287,3 +287,4 @@ socket.on('deleteClass', function (data) {
      {"name": "Arrays", "size": 8258},
      {"name": "Colors", "size": 10001},
      {"name": "Dates", "size": 8217},
+     */
