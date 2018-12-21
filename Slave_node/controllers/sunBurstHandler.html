@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Handling...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/socket.io/socket.io.js"></script>
+
+</head>
+
+<body>
+
+    <script>
+
+        var socket = io('http://localhost:4000');
+
+        // Saving received data in Local Storage
+        socket.on('T1', function (data) {
+            saveInLocalStorage(data);
+        });
+
+
+        //Save data in Local Storage and open sunBurst.html
+        function saveInLocalStorage(data) {
+            if (true) {
+
+                localStorage.setItem("json-items", JSON.stringify(data))
+                if (localStorage.setItem("json-items", JSON.stringify(data))) {
+
+                } else {
+                    localStorage.setItem("json-items", JSON.stringify(data))
+
+                }
+            }
+
+
+            createJSONFile();
+            window.location.href = "/v2";
+        }
+
+        var jsonFile = null,
+            createJSONFile = function (text) {
+
+                var data = new Blob([localStorage.getItem("json-items")], { type: 'application/json' });
+
+
+                if (jsonFile !== null) {
+                    window.URL.revokeObjectURL(jsonFile);
+                }
+
+                jsonFile = window.URL.createObjectURL(data);
+                return jsonFile;
+            };
+
+
+
+    </script>
+</body>
+
+</html>
