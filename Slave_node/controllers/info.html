@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!-- Template by Quackit.com -->
+<!-- Images by various sources under the Creative Commons CC0 license and/or the Creative Commons Zero license. 
+Although you can use them, for a more unique website, replace these images with your own. -->
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Group 3 -- Information</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom Fonts from Google -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="radial.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"/>
+    
+    
+  <!-- <link rel="stylesheet" href="icono.min.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/socket.io/socket.io.js"></script>
+    
+</head>
+
+<body>
+    <!-- Notification Material -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"> </script>
+        <script>
+            toastr.info('Group Information!');
+
+        </script>
+
+	<!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1>Group 3 </h1>
+                <p>Welcome to Group 3's Main Architecture</p>
+                <!-- <a href="#" class="btn btn-primary btn-lg">Engage Now</a> -->
+            </div>
+        </div>
+
+    <!-- Menu Buttons -->    
+        <div class="add-button black">
+            <div class="sub-button tl" onclick="toRT()">
+        
+            </div>
+            <div class="sub-button tr" onclick="toInfo()">
+                <!-- <li class="w3-large"><i class="fa fa-home"></i> Home</li> -->
+                </div>
+            <div class="sub-button bl" onclick="toT()"></div>
+            <!-- <div class="sub-button br" onclick="toSB()"></div> -->
+         
+          <div class="sub-button br" onclick="toSB()"></div>
+            <!-- <div class="sub-button br" onclick="toSB()"></div> -->
+          </div>
+         </div>
+         
+    <!-- Menu Buttons JavaScript Methods -->   
+          <script>
+              function toRT () {
+                  top.location.href = "/"
+              }
+              function toT () {
+                  top.location.href = "/v5"
+              }
+              function toInfo () {
+                  top.location.href = "/info"
+              }
+              function toSB () {
+                  top.location.href = "/v4"
+              }
+        
+          </script>
+    </header>
+
+	<!-- Intro Section -->
+     <section class="intro">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                	<span class="glyphicon glyphicon-component" style="font-size: 60px"></span>
+                    <h2 class="section-heading">System's Purpose</h2>
+                    <p class="text-light">Group 3's system is designed to help developers furthur understand the hierarchy within their project(s). This is done by providing three different creative visualizations that illustrate the hierarchy within the inputted project(s)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+	<!-- Content 1 -->
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img class="img-responsive center-block" src="component.png" alt="">
+                </div>
+                <div class="col-sm-6">
+                	<h2 class="section-header">Our Component Diagram</h2>
+                	<p class="lead text-muted">Our component diagram gives a visual describtion of how the system works on a single knowledge source. </p>
+                	<!-- <a href="#" class="btn btn-primary btn-lg">Classify It</a> -->
+                </div>                
+                
+            </div>
+        </div>
+    </section>
+
+	<!-- Content 2 -->
+     <section class="content content-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                	<h2 class="section-header">Our Deployment Diagram</h2>
+                	<p class="lead text-light">Our deployment diagram gives a visual describtion of how our nodes interact with each other using the BlackBoard Architecture Style. Our deplyment diagram provides a visual insight of the distribution of data across multiple nodes as well.</p>
+                	<!-- <a href="#" class="btn btn-default btn-lg">Test It</a> -->
+                </div>    
+                <div class="col-sm-6">
+                    <img class="img-responsive center-block" src="deployment.png" alt="">
+                </div>            
+                
+            </div>
+        </div>
+    </section>    
+
+    <!-- Promos -->
+	<div class="container-fluid">
+        <div class="row promo">
+        	<a href="#">
+				<div class="col-md-4 promo-item item-1">
+					<h3>
+						Research
+					</h3>
+				</div>
+            </a>
+            <a href="#">
+				<div class="col-md-4 promo-item item-2">
+					<h3>
+						Team Work
+					</h3>
+				</div>
+            </a>
+			
+			<a href="#">
+				<div class="col-md-4 promo-item item-3">
+					<h3>
+						Hard Work
+					</h3>
+				</div>
+            </a>
+        </div>
+    </div><!-- /.container-fluid -->
+
+	<!-- Content 3 -->
+     <!-- <section class="content content-3">
+        <div class="container">
+			<h2 class="section-header"><span class="glyphicon glyphicon-pushpin text-primary"></span><br> Sanity Check</h2>
+			<p class="lead text-muted">Holisticly predominate extensible testing procedures for reliable supply chains. Dynamically innovate resource-leveling customer service for state of the art customer service.</p> 
+                    <a href="#" class="btn btn-primary btn-lg">Check Now</a>               
+            </div>
+        </div>
+    </section> -->
+    
+	<!-- Footer -->
+    <footer class="page-footer">
+    
+    	<!-- Contact Us -->
+        <div class="contact">
+        	<div class="container">
+				<h1 class="section-heading">Team Members:</h1>
+                <h3> Majed Dalain</h3>
+                <h3> Ranim Khojah</h3>
+                <h3> Majd Hatoum</h3>
+                <h3> Mohammad Zreik</h3>
+                <h3> M Nazeeh Alhosary</h3>
+                
+        	</div>
+        </div>
+        	
+        
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    
+    <!-- Custom Javascript -->
+    <script src="js/custom.js"></script>
+
+</body>
+
+</html>

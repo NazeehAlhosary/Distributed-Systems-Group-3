@@ -42,6 +42,9 @@ app.get('/v4', function (req, res) {
 app.get('/v5', function (req, res) {
   res.sendfile('controllers/treeHandler.html');
 });
+app.get('/info', function (req, res) {
+  res.sendfile('controllers/info.html');
+});
 
 
 //Sync with Master node to get Data

@@ -96,7 +96,7 @@ header {
 }
      
 .tr:before {
-  content:"🏠";
+  content:"ℹ️";
 }
 .bl:before {
   content:"🌲";
@@ -112,7 +112,7 @@ header {
   }
   
 .tr:hover {
-    content:"🏠";
+   content:"ℹ️";
   }
   
 .bl:hover {
