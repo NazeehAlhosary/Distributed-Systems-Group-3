@@ -73,12 +73,12 @@
             <!--here where the actual the actual code starts-->
             <div class="container-sm">
                <div class="main">
-                  <h1 class="title">Generate 3 different visualizations fron your JSON code</h1>
+                  <h1 class="title">Generate 3 different visualizations from your JSON code</h1>
                   <p class="paragraph">upload your .json file here</p>
                   <div class="upload-project">
-                     <input type="file" id="file-upload" class=" button-primary button-shadow" name="myFile">
+                     <input type="file" id="file-upload" class=" button-primary button-shadow" name="myFile"  accept="application/json" required>
                      <input id="json-input" class="button button-primary button-shadow" type="submit" onclick="saveInLocalStorage(event)"
-                        accept=".json" required>
+                       >
                      <p id="file-upload-filename"></p>
                   </div>
                   <div class="projects">
