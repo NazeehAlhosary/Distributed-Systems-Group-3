@@ -4,6 +4,7 @@
 * [Git](https://git-scm.com/) 
 * [Nodejs](https://nodejs.org/en/) (v10) with [NPM](https://www.npmjs.com/)
 * Everything else is installed through npm
+* [Google Chrome](https://www.google.com/chrome/) Browser
 
 
 # 2. Cloning the Repository
