@@ -9,10 +9,10 @@
 # 2. Cloning the Repository
 
 ```bash
-# Without Gitlab Registration
+# Without GitHub Registration
 git clone https://github.com/NazeehAlhosary/Distributed-Systems-Group-3.git
 
-# With Gitlab Registration
+# With GitHub Registration
 git@github.com:NazeehAlhosary/Distributed-Systems-Group-3.git
 ```
 # 3. Run the ```npm``` server:
